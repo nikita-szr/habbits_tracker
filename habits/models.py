@@ -20,7 +20,7 @@ class Habit(models.Model):
     duration = models.PositiveIntegerField(verbose_name='Продолжительность в минутах')
     time_action = models.TimeField(max_length=25, verbose_name='Время, когда надо выполнить привычку')
     action = models.CharField(max_length=100, verbose_name='Действие, которое надо сделать')
-    prize = models.CharField(max_length=100, verbose_name='Вознаграждение', **NULLABLE)
+    prize = models.CharField(max_length=150, verbose_name='Вознаграждение', **NULLABLE)
     is_pleasant = models.BooleanField(default=False, verbose_name='Приятная-True/Полезная-False')
     last_performed = models.DateField(verbose_name='Дата последнего выполнения', **NULLABLE)
     execution_interval_day = models.PositiveIntegerField(default=1, verbose_name='Интервал выполнения (дни)')

@@ -31,7 +31,7 @@ TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv('DEBUG') == 'True' else False
 
-ALLOWED_HOSTS = list(os.getenv('DJANGO_ALLOWED_HOSTS'))
+ALLOWED_HOSTS = []
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -41,20 +41,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'django_extensions',
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'django_extensions',
     'django.contrib.sites',
+
+    'drf_yasg',
     'corsheaders',
     'habits',
     'users',
-    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -127,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Russia/Samara"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
@@ -194,7 +196,7 @@ SIMPLE_JWT = {
 
 
 # cash
-CACHES_ENABLED = os.getenv('DJANGO_CACHES_ENABLED', False).lower() == 'true'
+CACHES_ENABLED = os.getenv('DJANGO_CACHES_ENABLED', False) == 'true'
 if CACHES_ENABLED:
     CACHES = {
         "default": {
@@ -208,7 +210,7 @@ if CACHES_ENABLED:
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # Например, Redis
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')  # URL-адрес брокера результатов, также Redis
 CELERY_TIMEZONE = os.getenv('CELERY_TIMEZONE')
-CELERY_TASK_TRACK_STARTED = os.getenv('CELERY_TASK_TRACK_STARTED', False).lower() == 'true'
+CELERY_TASK_TRACK_STARTED = os.getenv('CELERY_TASK_TRACK_STARTED', False) == 'true'
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
@@ -219,6 +221,6 @@ CELERY_BEAT_SCHEDULE = {
 }
 
 # Запуск задач синхронно
-CELERY_TASK_ALWAYS_EAGER = os.getenv('CELERY_TASK_ALWAYS_EAGER', False).lower() == 'true'
+CELERY_TASK_ALWAYS_EAGER = os.getenv('CELERY_TASK_ALWAYS_EAGER', False) == 'true'
 # Исключения будут пробрасываться
-CELERY_EAGER_PROPAGATES_EXCEPTIONS = os.getenv('CELERY_EAGER_PROPAGATES_EXCEPTIONS', False).lower() == 'true'
+CELERY_EAGER_PROPAGATES_EXCEPTIONS = os.getenv('CELERY_EAGER_PROPAGATES_EXCEPTIONS', False) == 'true'

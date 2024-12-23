@@ -716,6 +716,16 @@ dev = ["build", "hatch"]
 doc = ["sphinx"]
 
 [[package]]
+name = "telegram"
+version = "0.0.1"
+description = "Telegram APIs"
+optional = false
+python-versions = "*"
+files = [
+    {file = "telegram-0.0.1.tar.gz", hash = "sha256:d405a0af4c868a8dbeae6d03e297e21c7ee6269e11e2ed3810e15544aba02591"},
+]
+
+[[package]]
 name = "tzdata"
 version = "2024.2"
 description = "Provider of IANA time zone data"
@@ -762,4 +772,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "fa4ff7785b29e884a6f900556a87e57396a4ffe77ee2940dd97a62f8b0d1e929"
+content-hash = "37ae3f389338c91b52a9a3c91e9a0452e444c5e93469a33829f11e1b581045fa"

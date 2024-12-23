@@ -40,4 +40,3 @@ class RewardAndRelatedValidatorTest(TestCase):
             self.validator(data)
         except Exception as e:
             self.fail(f'Validator raised exception unexpectedly: {e}')
-            

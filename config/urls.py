@@ -30,4 +30,3 @@ urlpatterns = [
     path('api/users/', include('users.urls', namespace='users')),
     path('api/habits/', include('habits.urls', namespace='habits'))
 ]
-

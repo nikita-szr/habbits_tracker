@@ -26,7 +26,7 @@ urlpatterns = [
     path('api-schema/', schema_view.without_ui(), name='schema'),
 
     path('admin/', admin.site.urls),
-    path('', api_only_view, name='api_only'),  # Заглушка на корневом URL
+    path('', api_only_view, name='api_only'),
     path('api/users/', include('users.urls', namespace='users')),
     path('api/habits/', include('habits.urls', namespace='habits'))
 ]

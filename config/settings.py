@@ -175,10 +175,15 @@ LOGGING = {
 }
 
 # Settings CORS
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
+# if DEBUG:
+#     CORS_ALLOW_ALL_ORIGINS = True
+# else:
+#     CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",  # Локальный сервер
+    "https://example.com",  # Пример домена
+]
 
 # JWT token
 REST_FRAMEWORK = {

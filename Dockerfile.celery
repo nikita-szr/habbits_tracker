@@ -1,9 +1,19 @@
 FROM python:3.10-slim
 
+# Устанавливаем зависимости
 WORKDIR /app
 COPY requirements.txt .
 
+RUN apt-get update && apt-get install -y build-essential libpq-dev && rm -rf /var/lib/apt/lists/*  # Установите необходимые пакеты
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Копируем код приложения
 COPY . .
 
+# Добавляем пользователя и работаем от его имени
+RUN useradd -ms /bin/bash celeryuser
+USER celeryuser
+
+# Указываем команду для запуска Celery worker
 CMD ["celery", "-A", "habits", "worker", "--loglevel=info"]
+

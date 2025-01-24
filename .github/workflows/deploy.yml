@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Docker Compose Build
         run: |
-          docker-compose --env-file .env build
+          docker-compose build
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}

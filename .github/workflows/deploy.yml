@@ -24,7 +24,9 @@ jobs:
 
       - name: Run tests
         run: |
-          python manage.py test
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+            python manage.py test
 
       - name: Lint code
         run: |
@@ -41,7 +43,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}
           script: |
-            cd /path/to/your/project
+            cd /home/admin/habits_tracker
             git pull
             docker-compose down
             docker-compose up -d

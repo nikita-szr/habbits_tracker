@@ -10,23 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Шаг 1: Клонирование репозитория
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Шаг 2: Настройка Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
 
+      # Шаг 3: Установка зависимостей Python
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Install Docker Compose
+      # Шаг 4: Установка Docker и Docker Compose
+      - name: Install Docker and Docker Compose
         run: |
           sudo apt-get update
-          sudo apt-get install -y docker-compose
+          sudo apt-get install -y docker.io
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
+      # Шаг 5: Строим контейнеры с Docker Compose
       - name: Run Docker Compose Build
         run: |
           docker-compose build
@@ -36,6 +43,7 @@ jobs:
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
+      # Шаг 6: Запуск тестов Django
       - name: Run tests
         run: |
           python manage.py test
@@ -47,14 +55,17 @@ jobs:
           DB_HOST: localhost
           DB_PORT: 5432
 
+      # Шаг 7: Линтинг кода
       - name: Lint code
         run: |
           flake8 .
 
-      - name: Build Docker images
+      # Шаг 8: Строим Docker образы (повторно, если необходимо)
+      - name: Build Docker images again
         run: |
           docker-compose build
 
+      # Шаг 9: Деплой на сервер
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -68,5 +79,5 @@ jobs:
             export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
             export SECRET_KEY=${{ secrets.SECRET_KEY }}
-            docker-compose down
-            docker-compose up -d
+            sudo docker-compose down
+            sudo docker-compose up -d

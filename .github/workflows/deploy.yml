@@ -67,7 +67,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}
           script: |
-            cd /home/admin/habits_tracker
+            cd /home/admin/habits_tracker || git clone https://github.com/nikita-szr/habbits_tracker/tree/working /home/admin/habits_tracker && cd /home/admin/habits_tracker
             git pull
             export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
             export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}

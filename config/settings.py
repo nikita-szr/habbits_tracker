@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from datetime import timedelta
+import sys
 
 load_dotenv(override=True)
 
@@ -102,9 +103,7 @@ DATABASES = {
     }
 }
 
-import sys
-
-if 'test' in sys.argv or 'test\_coverage' in sys.argv:
+if 'test' in sys.argv or 'test/coverage' in sys.argv:
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
     DATABASES['default']['NAME'] = ':memory:'
 

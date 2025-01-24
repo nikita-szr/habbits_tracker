@@ -26,16 +26,15 @@ jobs:
           pip install -r requirements.txt
 
       # Шаг 4: Проверка и установка Docker и Docker Compose
-      - name: Check and Install Docker and Docker Compose
+      - name: Install Docker and Docker Compose
         run: |
-          if ! docker --version; then
-            sudo apt-get update
-            sudo apt-get install -y docker.io
-          fi
-          if ! docker compose version; then
-            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-          fi
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          DOCKER_CONFIG=${DOCKER_CONFIG:-/usr/local/lib/docker/cli-plugins}
+          sudo mkdir -p $DOCKER_CONFIG
+          sudo curl -SL "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o $DOCKER_CONFIG/docker-compose
+          sudo chmod +x $DOCKER_CONFIG/docker-compose
+          docker-compose version
 
       # Шаг 5: Строим контейнеры с Docker Compose
       - name: Run Docker Compose Build
